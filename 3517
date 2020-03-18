@@ -1,0 +1,64 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		int[] ai;
+		try {
+
+			ai = new int[Integer.parseInt(br.readLine())];
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			for (int i = 0; i < ai.length; i++) {
+				ai[i] = Integer.parseInt(st.nextToken());
+			}
+
+			int m = Integer.parseInt(br.readLine());
+			st = new StringTokenizer(br.readLine(), " ");
+			for (int i = 0; i < m; i++) {
+				int target = Integer.parseInt(st.nextToken());
+				if (target >= ai[0] && target <= ai[ai.length - 1]) {
+					bw.write(b_search(target, ai, 0, (ai.length - 1)) + " ");
+				} else {
+					bw.write("-1 ");
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (bw != null)
+					bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public static int b_search(int target, int[] ai, int low, int high) {
+		while (low <= high) {
+
+			int mid = (low + high) / 2;
+
+			if (ai[mid] == target) {
+				return mid;
+			} else if (ai[mid] > target) {
+				high = mid - 1;
+			} else {
+				low = mid + 1;
+			}
+		}
+		return -1;
+	}
+}
