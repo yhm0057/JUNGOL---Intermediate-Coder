@@ -11,10 +11,9 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
-		int[] ai;
 		try {
 
-			ai = new int[Integer.parseInt(br.readLine())];
+			int[] ai = new int[Integer.parseInt(br.readLine())];
 			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 			for (int i = 0; i < ai.length; i++) {
 				ai[i] = Integer.parseInt(st.nextToken());
@@ -22,6 +21,7 @@ public class Main {
 
 			int m = Integer.parseInt(br.readLine());
 			st = new StringTokenizer(br.readLine(), " ");
+			
 			for (int i = 0; i < m; i++) {
 				int target = Integer.parseInt(st.nextToken());
 				if (target >= ai[0] && target <= ai[ai.length - 1]) {
@@ -33,12 +33,11 @@ public class Main {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			
 		} finally {
 			try {
-				if (br != null)
-					br.close();
-				if (bw != null)
-					bw.close();
+				if (br != null)	br.close();
+				if (bw != null)	bw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -47,18 +46,17 @@ public class Main {
 	}
 
 	public static int b_search(int target, int[] ai, int low, int high) {
+		
 		while (low <= high) {
 
 			int mid = (low + high) / 2;
 
-			if (ai[mid] == target) {
-				return mid;
-			} else if (ai[mid] > target) {
-				high = mid - 1;
-			} else {
-				low = mid + 1;
-			}
+			if (ai[mid] == target) return mid;
+			else if (ai[mid] > target) high = mid - 1;
+			else low = mid + 1;
+			
 		}
+		
 		return -1;
 	}
 }
