@@ -1,0 +1,61 @@
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Main {
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		sc.nextInt();
+		sc.nextInt();
+		
+		int paper = sc.nextInt();
+		int hole = sc.nextInt();
+		
+		int low = 0;
+		int high = 1000000;
+		
+		Set<Integer> set = new TreeSet<>();
+		
+		for(int i = 0; i < hole; i++) {
+			int n = sc.nextInt();
+			if(low < n) low = n;
+			set.add(sc.nextInt());
+		}
+		
+		sc.close();
+		
+		while(low <= high) {
+			int mid = (low + high) / 2;
+			
+			if(need(mid, set) <= paper) {
+				high = mid - 1;
+			} else {
+				low = mid + 1;
+			}
+		}
+		System.out.println(low);
+	}
+	
+	public static int need(int length, Set<Integer> set) {
+		
+		int start = 0;
+		int end = 0;
+		
+		int paper_num = 0;
+		
+		for(int target : set) {
+			
+			if(end < target) {
+				start = target;
+				end = (start + length) -1;
+				paper_num++;
+			}
+		}
+		
+		return paper_num;
+	}
+	
+	
+}
